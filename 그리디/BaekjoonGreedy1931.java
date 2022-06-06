@@ -20,7 +20,7 @@ import java.util.StringTokenizer;
  * 출력
  * 첫째 줄에 최대 사용할 수 있는 회의의 최대 개수를 출력한다.
 */
-public class Main {
+public class BaekjoonGreedy1931 {
 	
     public void solution() throws Exception {
         int[][] input = input();        
@@ -63,9 +63,9 @@ public class Main {
         
         System.out.println(result);
     }
-
+    
     public static void main(String[] args) throws Exception {
-        new Main().solution();
+        new BaekjoonGreedy1931().solution();
     }
 
     public int[][] input() throws Exception {

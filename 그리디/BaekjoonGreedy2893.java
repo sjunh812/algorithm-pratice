@@ -1,7 +1,8 @@
+package sjh;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-/**
+/*
  * 문제
  * 상근이는 요즘 설탕공장에서 설탕을 배달하고 있다. 상근이는 지금 사탕가게에 설탕을 정확하게 N킬로그램을 배달해야 한다.
  * 설탕공장에서 만드는 설탕은 봉지에 담겨져 있다. 봉지는 3킬로그램 봉지와 5킬로그램 봉지가 있다.
@@ -15,10 +16,8 @@ import java.io.InputStreamReader;
  * 출력
  * 상근이가 배달하는 봉지의 최소 개수를 출력한다. 만약, 정확하게 N킬로그램을 만들 수 없다면 -1을 출력한다.
  */
+public class BaekjoonGreedy2893 {
 
-public class Main {
-
-	public int index = 0;
     public void solution() throws Exception {
         int kg = input();
         int a = kg / 5;
@@ -42,7 +41,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
-        new Main().solution();
+        new BaekjoonGreedy2893().solution();
     }
 
     public int input() throws Exception {
