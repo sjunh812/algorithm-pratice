@@ -2,100 +2,33 @@ package sjh;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.StringTokenizer;
 
 
 public class BaekjoonGreedy25287 {
 
-	ArrayList<ArrayList<Integer>> perList = new ArrayList<>();
+	ArrayList<ArrayList<Integer>> perList = new ArrayList<>();	// 순열 리스트
 		
-    public void solution() throws Exception {
-//    	input();
-//    	
-//    	ArrayList<String> result = new ArrayList<>();
-//    	
-//    	for(ArrayList<Integer> per : perList) {
-//    		int center = per.size() / 2;
-//    		
-//    		if(per.size() % 2 == 0) {	// 짝
-//    			for(int i = 0; i < per.size(); i++) {
-//    				int n = per.get(i);
-//    				
-//    				if(i < center) {
-//    					if(n > center) {
-//    						per.set(i, per.size() - n + 1);
-//    					}
-//    				} else if(center <= i) {
-//    					if(n <= center) {
-//    						per.set(i, per.size() - n + 1);
-//    					}
-//    				} 
-//    			}
-//    			
-//    			if(check(per)) {
-//					result.add("YES");
-//				} else {
-//					result.add("NO");
-//				}
-//    		} else {	// 홀
-//    			for(int i = 0; i < per.size(); i++) {
-//    				int n = per.get(i);
-//    				
-//    				if(i < center) {
-//    					if(n > center + 1) {
-//    						per.set(i, per.size() - n + 1);
-//    					}
-//    				} else if(center < i) {
-//    					if(n < center + 1) {
-//    						per.set(i, per.size() - n + 1);
-//    					}
-//    				} 
-//    			}
-//    			
-//    			if(check(per)) {
-//    				result.add("YES");
-//    			} else {
-//    				per.set(center, per.size() - per.get(center) + 1);
-//    				if(check(per)) {
-//    					result.add("YES");
-//    				} else {
-//    					result.add("NO");
-//    				}
-//    			}
-//    		}
-//    	}
-//    	
-//    	for(String str : result) {
-//			System.out.println(str);
-//		}
+    public void solution() throws Exception {    
+    	input();
     	
     	ArrayList<String> result = new ArrayList<>();
-    	
-    	input();
     	
     	for(ArrayList<Integer> per : perList) {
     		int resultLen = result.size();
     		
     		for(int j = 0; j < per.size(); j++) {
-    			int i = per.get(j);
-    			int i2 = cal(per.size(), i);
+    			int i = per.get(j);	// case 1(기존)
+    			int i2 = cal(per.size(), i);	// case 2(연산)
     			
     			if(j == 0) {
     				if(i > i2) per.set(j, i2);
     			} else {
-    				int i0 = per.get(j - 1);
+    				int i0 = per.get(j - 1);	// 이전 값
     				
     				if(i < i2) {
-    					if(i0 < i) {
-        					
-        				} else if(i0 == i) {
-        					
-        				} else {
-        					if(i0 < i2) {
-        						per.set(j, i2);
-        					} else if(i0 > i2) {
+    					if(i0 > i) {	
+        					if(i0 > i2) {	
         						result.add("NO");
         						break;
         					} else {
@@ -103,14 +36,10 @@ public class BaekjoonGreedy25287 {
         					}
         				}
     				} else {
-    					if(i0 < i2) {
+    					if(i0 <= i2) {
     						per.set(j, i2);
-        				} else if(i0 == i2) {
-        					per.set(j, i2);
         				} else {
-        					if(i0 < i) {
-        						
-        					} else if(i0 > i) {
+        					if(i0 > i) {
         						result.add("NO");
         						break;
         					}
@@ -132,17 +61,7 @@ public class BaekjoonGreedy25287 {
     public int cal(int n, int i) {
     	return n - i + 1;
     }
-    
-    public Boolean check(ArrayList<Integer> list) {
-    	for(int i = 0; i < list.size() - 1; i++) {
-    		if(list.get(i) > list.get(i + 1)) {
-    			return false;
-    		}
-    	}
-    	
-    	return true;
-    }
-
+   
     public static void main(String[] args) throws Exception {
         new BaekjoonGreedy25287().solution();
     }
