@@ -1,8 +1,6 @@
 package sjh;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 /*
@@ -13,18 +11,17 @@ import java.util.StringTokenizer;
 public class BaekjoonGreedy13305 {
 		
 	int cityCount;
-	int[] loadLengths;
-	int[] oilPrices;
+	long[] loadLengths;
+	long[] oilPrices;
 	
     public void solution() throws Exception {
-    	int result = 0;
+    	long result = 0;
     	
     	input();
     	
     	for(int i = 0; i < cityCount - 1; i++) {  
-    		int loadLength = loadLengths[i];
+    		long loadLength = loadLengths[i];
     		int j = i + 1;
-    		System.out.println("시작 도로길이 : " + loadLength);
 		
     		for(; j < cityCount - 1; j++) {
     			if(oilPrices[i] < oilPrices[j]) {
@@ -39,7 +36,7 @@ public class BaekjoonGreedy13305 {
 			result += (oilPrices[i] * loadLength);
 			i = j - 1;
         }
-    	
+
     	System.out.println(result);
     }
 
@@ -50,8 +47,8 @@ public class BaekjoonGreedy13305 {
     public void input() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         cityCount = Integer.parseInt(br.readLine());
-        loadLengths = new int[cityCount - 1];	
-        oilPrices = new int[cityCount];
+        loadLengths = new long[cityCount - 1];	
+        oilPrices = new long[cityCount];
         
         // 도시간 도로길이 배열
         StringTokenizer st = new StringTokenizer(br.readLine());

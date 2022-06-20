@@ -13,8 +13,9 @@ public class BaekjoonGreedy1202 {
 	
 	int n;	// 보석 수
 	int k;	// 가방 수
-	PriorityQueue<Jewel> jewels = new PriorityQueue<>();	// 보석 정보(무게,가격)
-	PriorityQueue<Long> bags = new PriorityQueue<>();	// 가방 정보(무게)
+	ArrayList<Jewel> jewels = new ArrayList<>();	// 보석 정보(무게,가격)
+	ArrayList<Long> bags = new ArrayList<>();	// 가방 정보(무게)
+	PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
 	
     public class Jewel implements Comparable<Jewel> {
     	
@@ -28,16 +29,17 @@ public class BaekjoonGreedy1202 {
 
 		@Override
 		public int compareTo(Jewel o) {
-			if(this.v > o.v) 
-				return -1;
-			else if(this.v < o.v) 
-				return 1;
-			else {
-				if(this.m < o.m) return -1;
-				else if(this.m > o.m) return 1;
-			}
-
-			return 0;
+//			if(this.v > o.v) 
+//				return -1;
+//			else if(this.v < o.v) 
+//				return 1;
+//			else {
+//				if(this.m < o.m) return -1;
+//				else if(this.m > o.m) return 1;
+//			}
+			if(this.m > this.m) return 1;
+			else if(this.m < this.m) return -1;
+			else return 0;
 		}
     
     }
@@ -45,35 +47,43 @@ public class BaekjoonGreedy1202 {
     public void solution() throws Exception {  
     	input();
         
+    	Collections.sort(bags);	// 무게 오름차순
+    	Collections.sort(jewels);	// 무게 오름차순
+    	
         long result = 0;	// 훔칠 수 있는 최대 가격
+        int start = 0;
         
-        for(long weight : bags) {        	
-        	Iterator<Jewel> it = jewels.iterator();
-        	
-        	while(it.hasNext()) {
-        		Jewel jewel = it.next();
-        		int m = jewel.getM();
-        		int v = jewel.getV();
+//        for(long weight : bags) {        	
+//        	for(Jewel jewel : jewels) {
+//        		int m = jewel.m;
+//        		int v = jewel.v;
+//        		
+//        		if(weight >= m) {
+//        			jewels.remove(jewel);
+//        			result += v; 
+//        			break;
+//        		}
+//        	}  	
+//        }
+        
+        for(long weight : bags) {
+        	for(int i = start; i < jewels.size(); i++) {
+        		Jewel jewel = jewels.get(i);
         		
-        		if(weight >= m) {
-        			it.remove();
-        			result += v; 
+        		if(weight < jewel.m) {
+        			start = i;
         			break;
+        		} else {
+        			pq.add(jewel.v);
         		}
-        	}    	
+        	}
+        	
+        	if(!pq.isEmpty()) {
+        		result += pq.poll();
+        	}
         }
 
         System.out.println(result); 
-    }
-    
-    public void binarySearch(long key, int low, int high) {
-    	int mid;
-    	
-    	while(low <= high) {
-    		mid = (low + high) / 2;
-    		
-    		if(jewels.)
-    	}
     }
     
     public static void main(String[] args) throws Exception {
