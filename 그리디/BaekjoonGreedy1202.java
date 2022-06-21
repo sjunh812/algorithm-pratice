@@ -2,10 +2,7 @@ package sjh;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
@@ -15,7 +12,7 @@ public class BaekjoonGreedy1202 {
 	int k;	// 가방 수
 	ArrayList<Jewel> jewels = new ArrayList<>();	// 보석 정보(무게,가격)
 	ArrayList<Long> bags = new ArrayList<>();	// 가방 정보(무게)
-	PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+	PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());	// 보석후보를 담을 우선수위큐(가격높은순)
 	
     public class Jewel implements Comparable<Jewel> {
     	
@@ -29,16 +26,8 @@ public class BaekjoonGreedy1202 {
 
 		@Override
 		public int compareTo(Jewel o) {
-//			if(this.v > o.v) 
-//				return -1;
-//			else if(this.v < o.v) 
-//				return 1;
-//			else {
-//				if(this.m < o.m) return -1;
-//				else if(this.m > o.m) return 1;
-//			}
-			if(this.m > this.m) return 1;
-			else if(this.m < this.m) return -1;
+			if(this.m > o.m) return 1;
+			else if(this.m < o.m) return -1;
 			else return 0;
 		}
     
@@ -51,30 +40,17 @@ public class BaekjoonGreedy1202 {
     	Collections.sort(jewels);	// 무게 오름차순
     	
         long result = 0;	// 훔칠 수 있는 최대 가격
-        int start = 0;
-        
-//        for(long weight : bags) {        	
-//        	for(Jewel jewel : jewels) {
-//        		int m = jewel.m;
-//        		int v = jewel.v;
-//        		
-//        		if(weight >= m) {
-//        			jewels.remove(jewel);
-//        			result += v; 
-//        			break;
-//        		}
-//        	}  	
-//        }
+        int start = 0;	// 보석 탐색위치
         
         for(long weight : bags) {
         	for(int i = start; i < jewels.size(); i++) {
         		Jewel jewel = jewels.get(i);
         		
         		if(weight < jewel.m) {
-        			start = i;
         			break;
         		} else {
         			pq.add(jewel.v);
+        			start++;
         		}
         	}
         	
