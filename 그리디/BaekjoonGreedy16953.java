@@ -1,4 +1,4 @@
-package sjh;
+package sjh.greedy;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
