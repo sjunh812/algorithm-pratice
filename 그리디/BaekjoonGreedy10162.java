@@ -4,55 +4,51 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-/*
- * 캠핑장을 p일 중, l일 동안만 사용(v일짜리 휴가)
- */
 public class BaekjoonGreedy10162 {
 	
-	ArrayList<Camping> list = new ArrayList<>();
-	
-	public class Camping {
-		
-		int l;
-		int p;
-		int v;
-		
-		public Camping(int l, int p, int v) {
-			this.l = l;
-			this.p = p;
-			this.v = v;
-		}
-		
-	}
+	int t;
 	
     public void solution() throws Exception {
     	input();
     	
-    	int i = 1;
+    	boolean success = false;
+    	int[] result = {0, 0, 0};
+    	int n = t;
     	
-    	for(Camping camping : list) {
-    		int result = 0;
-    		
-    		if(camping.v > camping.p) {
-    			result += (camping.v / camping.p) * camping.l;
-    			int remain = camping.v % camping.p;
-    			
-    			if(camping.l >= remain) {
-    				result += remain;
-    			} else {
-    				result += camping.l;
-    			}
-    		} else if(camping.v == camping.p) {
-    			result = camping.l;
-    		} else {
-    			if(camping.l >= camping.v) {
-    				result += camping.v;
-    			} else {
-    				result += camping.l;
-    			}
+    	// 300, 60, 10
+    	while(true) {
+    		if(n % 10 != 0) {
+    			break;
     		}
     		
-    		System.out.println("Case " + i++ + ": " + result);
+    		if(n >= 300) {
+    			result[0] = n / 300;
+    			n = n % 300;
+    		} else if(n >= 60) {
+    			result[1] = n / 60;
+    			n = n % 60;
+    		} else if(n >= 10) {
+    			result[2] = n / 10;
+    			n = n % 10;
+    		}
+    		
+    		if(n == 0) {
+    			success = true;
+    			break;
+    		}
+    	}
+    	
+    	if(success) {
+    		for(int i = 0; i < result.length; i++) {
+    			System.out.print(result[i]);
+    			if(i == result.length - 1) {
+    				System.out.println();
+    			} else {
+    				System.out.print(" ");
+    			}
+    		}
+    	} else {
+    		System.out.println(-1);
     	}
     }
 
@@ -62,16 +58,7 @@ public class BaekjoonGreedy10162 {
 
     public void input() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        
-        while(true) {
-        	StringTokenizer st = new StringTokenizer(br.readLine());
-        	int l = Integer.parseInt(st.nextToken());
-        	int p = Integer.parseInt(st.nextToken());
-        	int v = Integer.parseInt(st.nextToken());
-        	
-        	if(l == 0 && p == 0 && v == 0) break;
-        	else list.add(new Camping(l, p, v));
-        }
+        t = Integer.parseInt(br.readLine());
     }
     
 }
